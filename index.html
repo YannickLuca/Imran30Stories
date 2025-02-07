@@ -24,7 +24,8 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        async function submitStory() {
+        // ✅ Make submitStory globally accessible
+        window.submitStory = async function () {
             const name = document.getElementById("name").value;
             const story = document.getElementById("story").value;
             const isTrue = document.getElementById("isTrue").value;
@@ -35,28 +36,30 @@
                 return;
             }
 
-            // Store the story in Firestore
-            await addDoc(collection(db, "stories"), {
-                name: name,
-                story: story,
-                isTrue: isTrue,
-                explanation: explanation,
-                timestamp: serverTimestamp()
-            });
+            try {
+                await addDoc(collection(db, "stories"), {
+                    name: name,
+                    story: story,
+                    isTrue: isTrue,
+                    explanation: explanation,
+                    timestamp: serverTimestamp()
+                });
 
-            // Show confirmation message
-            document.getElementById("confirmationMessage").style.display = "block";
-            document.getElementById("thanksMessage").style.display = "block";
-            setTimeout(() => {
-                document.getElementById("confirmationMessage").style.display = "none";
-                document.getElementById("thanksMessage").style.display = "none";
-            }, 5000);
+                document.getElementById("confirmationMessage").style.display = "block";
+                document.getElementById("thanksMessage").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("confirmationMessage").style.display = "none";
+                    document.getElementById("thanksMessage").style.display = "none";
+                }, 5000);
 
-            // Clear form fields
-            document.getElementById("name").value = "";
-            document.getElementById("story").value = "";
-            document.getElementById("explanation").value = "";
-        }
+                document.getElementById("name").value = "";
+                document.getElementById("story").value = "";
+                document.getElementById("explanation").value = "";
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("Fehler beim Speichern der Story. Bitte versuche es erneut.");
+            }
+        };
     </script>
 
     <style>
