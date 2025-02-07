@@ -46,9 +46,11 @@
 
             // Show confirmation message
             document.getElementById("confirmationMessage").style.display = "block";
+            document.getElementById("thanksMessage").style.display = "block";
             setTimeout(() => {
                 document.getElementById("confirmationMessage").style.display = "none";
-            }, 3000);
+                document.getElementById("thanksMessage").style.display = "none";
+            }, 5000);
 
             // Clear form fields
             document.getElementById("name").value = "";
@@ -58,10 +60,36 @@
     </script>
 
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
-        input, textarea, select, button { display: block; margin: 10px auto; width: 80%; padding: 10px; }
-        button { background: blue; color: white; border: none; cursor: pointer; }
-        .confirmation { display: none; color: green; font-weight: bold; margin-top: 10px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            margin: 20px;
+        }
+        input, textarea, select, button { 
+            display: block; 
+            margin: 10px auto; 
+            width: 80%; 
+            padding: 10px; 
+            font-size: 16px;
+        }
+        button { 
+            background: blue; 
+            color: white; 
+            border: none; 
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+        }
+        button:hover {
+            transform: scale(1.1);
+            background: darkblue;
+        }
+        .confirmation, .thanks {
+            display: none; 
+            color: green; 
+            font-weight: bold; 
+            margin-top: 10px;
+        }
 
         /* Flexbox container for images */
         .image-gallery {
@@ -89,7 +117,13 @@
 </head>
 <body>
 
-    <h1>Schreib eine Story über Imran</h1>
+    <h1>Imran Story Challenge 🎉</h1>
+
+    <p>Willkommen zur Imran Story Challenge! 😃</p>
+    <p>Schreibe hier eine lustige oder interessante Story über Imran. Es kann ein Fact oder eine ganze Geschichte sein.</p>
+    <p>Wähle aus, ob die Story wahr oder erfunden ist und füge eine kurze Erklärung hinzu.</p>
+
+    <h2>Teile deine Story</h2>
 
     <input type="text" id="name" placeholder="Dein Name">
     <textarea id="story" placeholder="Schreibe hier eine Story..." rows="4"></textarea>
@@ -100,7 +134,9 @@
     <textarea id="explanation" placeholder="Falls die Story stimmt, gib eine Erklärung..." rows="2"></textarea>
 
     <button onclick="submitStory()">Story einreichen</button>
+    
     <p class="confirmation" id="confirmationMessage">✅ Story erfolgreich eingereicht!</p>
+    <p class="thanks" id="thanksMessage">🎉 Vielen Dank und bis bald! 🎉</p>
 
     <h3>Öffentliche Bilder</h3>
 
