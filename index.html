@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imran Story Challenge</title>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore.js";
+
+        // 🔥 Secure Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOhZRypBIbijxSkBDhkA5zmXaOqoR91Rg",
+            authDomain: "imran30stories.firebaseapp.com",
+            projectId: "imran30stories",
+            storageBucket: "imran30stories.firebasestorage.app",
+            messagingSenderId: "360158643415",
+            appId: "1:360158643415:web:b18492c6dbcc202bc45c92"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function submitStory() {
+            const name = document.getElementById("name").value;
+            const story = document.getElementById("story").value;
+            const isTrue = document.getElementById("isTrue").value;
+            const explanation = document.getElementById("explanation").value;
+
+            if (!name || story.trim() === "") {
+                alert("Bitte deinen Namen und eine Story eingeben!");
+                return;
+            }
+
+            // Store the story in Firestore
+            await addDoc(collection(db, "stories"), {
+                name: name,
+                story: story,
+                isTrue: isTrue,
+                explanation: explanation,
+                timestamp: serverTimestamp()
+            });
+
+            // Show confirmation message
+            document.getElementById("confirmationMessage").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("confirmationMessage").style.display = "none";
+            }, 3000);
+
+            // Clear form fields
+            document.getElementById("name").value = "";
+            document.getElementById("story").value = "";
+            document.getElementById("explanation").value = "";
+        }
+    </script>
+
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        input, textarea, select, button { display: block; margin: 10px auto; width: 80%; padding: 10px; }
+        button { background: blue; color: white; border: none; cursor: pointer; }
+        .confirmation { display: none; color: green; font-weight: bold; margin-top: 10px; }
+
+        /* Flexbox container for images */
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* Ensures images are all the same size */
+        .image-gallery img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover; /* Ensures images maintain aspect ratio and fill the box */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.1); /* Zoom effect on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Schreib eine Story über Imran</h1>
+
+    <input type="text" id="name" placeholder="Dein Name">
+    <textarea id="story" placeholder="Schreibe hier eine Story..." rows="4"></textarea>
+    <select id="isTrue">
+        <option value="true">Stimmt</option>
+        <option value="false">Stimmt nicht</option>
+    </select>
+    <textarea id="explanation" placeholder="Falls die Story stimmt, gib eine Erklärung..." rows="2"></textarea>
+
+    <button onclick="submitStory()">Story einreichen</button>
+    <p class="confirmation" id="confirmationMessage">✅ Story erfolgreich eingereicht!</p>
+
+    <h3>Öffentliche Bilder</h3>
+
+    <div class="image-gallery">
+        <img src="https://raw.githubusercontent.com/YannickLuca/PicturesImran/main/Image1.JPG" alt="Image 1">
+        <img src="https://raw.githubusercontent.com/YannickLuca/PicturesImran/main/Image2.JPG" alt="Image 2">
+        <img src="https://raw.githubusercontent.com/YannickLuca/PicturesImran/main/Image3.JPG" alt="Image 3">
+        <img src="https://raw.githubusercontent.com/YannickLuca/PicturesImran/main/Image4.JPG" alt="Image 4">
+        <img src="https://raw.githubusercontent.com/YannickLuca/PicturesImran/main/Image5.JPG" alt="Image 5">
+    </div>
+
+</body>
+</html>
