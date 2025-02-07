@@ -94,6 +94,25 @@
             margin-top: 10px;
         }
 
+        /* PSSST, Überraschung! */
+        .surprise-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            font-weight: bold;
+            color: red;
+            opacity: 1;
+            animation: fadeOut 3s ease-in-out forwards;
+            z-index: 100;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
         /* Flexbox container for images */
         .image-gallery {
             display: flex;
@@ -119,6 +138,9 @@
     </style>
 </head>
 <body>
+
+    <!-- Surprise Text -->
+    <div class="surprise-text">PSSST, Überraschung!</div>
 
     <h1>Imran Story Challenge 🎉</h1>
 
